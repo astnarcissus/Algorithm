@@ -61,6 +61,7 @@ public class At3 {
     }
 
     // set
+    // 没注意while中的判断条件是!occ.contains(s.charAt(rk + 1)，搞得还花了点时间才看懂，可恶，智商还是捉鸡呀
     public static int lengthOfLongestSubstring2(String s) {
         // 哈希集合，记录每个字符是否出现过
         Set<Character> occ = new HashSet<>();
