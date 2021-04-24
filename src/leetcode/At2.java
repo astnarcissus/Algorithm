@@ -20,7 +20,7 @@ class ListNode {
 /**
  * @author 言叶长琴
  */
-public class Top100At2 {
+public class At2 {
 
     public static void main(String[] args) {
         addTwoNumbers(new ListNode(2, new ListNode(4, new ListNode(3))),
