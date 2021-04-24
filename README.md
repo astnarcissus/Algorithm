@@ -1,4 +1,4 @@
 # Algorithm
 algorithm note
-leetcode 热门 100
+自刷leetcode记录 
 2021/04/23 开始
