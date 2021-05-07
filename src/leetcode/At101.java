@@ -1,5 +1,7 @@
 package leetcode;
 
+import leetcode.common.TreeNode;
+
 /**
  * 给定一个二叉树，检查它是否是镜像对称的。
  * <p>
@@ -24,7 +26,6 @@ public class At101 {
     public static void main(String[] args) {
         System.out.println(isSymmetric(new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)), new TreeNode(2, new TreeNode(4), new TreeNode(3)))));
         System.out.println(isSymmetric(new TreeNode(1, new TreeNode(2, null, new TreeNode(3)), new TreeNode(2, null, new TreeNode(3)))));
-
 
     }
 
