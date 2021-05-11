@@ -58,7 +58,7 @@ public class At114 {
             // 有左节点，有右节点，左节点变成右节点，右节点变成左节点的最右子节点
             else {
                 TreeNode cur = pre.left;
-                while(cur.right != null) {
+                while (cur.right != null) {
                     cur = cur.right;
                 }
                 cur.right = pre.right;
@@ -66,6 +66,34 @@ public class At114 {
                 pre.left = null;
                 pre = pre.right;
             }
+        }
+    }
+
+    /**
+     * 优化之后的代码，不再针对结点的左右结点都做判断，因为位置调整之后不需要多余操作
+     *
+     * @param root
+     */
+    public void flatten2(TreeNode root) {
+
+        TreeNode pre = root;
+
+        while (pre != null) {
+            if (pre.left != null) {
+                if (pre.right == null) {
+                    pre.right = pre.left;
+                    pre.left = null;
+                } else {
+                    TreeNode cur = pre.left;
+                    while (cur.right != null) {
+                        cur = cur.right;
+                    }
+                    cur.right = pre.right;
+                    pre.right = pre.left;
+                    pre.left = null;
+                }
+            }
+            pre = pre.right;
         }
     }
 
