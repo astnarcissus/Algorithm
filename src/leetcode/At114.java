@@ -32,6 +32,8 @@ public class At114 {
     /**
      * 妈的一把过了，真爽
      * 基本就是寻找前驱结点的思路
+     * 不过还是有点冗长了，有机会可以优化一下代码
+     *
      * @param root
      */
     public void flatten(TreeNode root) {
