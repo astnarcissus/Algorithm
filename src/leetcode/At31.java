@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Arrays;
+
 /**
  * 实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
  *
@@ -31,12 +33,29 @@ public class At31 {
         new At31().nextPermutation(new int[]{1,1,3});
     }
 
+    /**
+     * 暴力，不过时间复杂度是O(n²)啊，诶
+     * 不过这个写法错了233
+     * 132
+     * 213才是正解
+     * 而这种方法解出来的是231
+     *
+     * @param nums
+     */
     public void nextPermutation(int[] nums) {
+        boolean flg = false;
+        for(int i = nums.length - 1; i >0; i--) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (nums[j] < nums[i] && !flg) {
+                    flg = true;
+                    int tmp = nums[j];
+                    nums[j] = nums[i];
+                    nums[i] = tmp;
+                }
+            }
+        }
 
-
-
-        System.out.println(nums);
+        if (!flg) Arrays.sort(nums);
     }
-
 
 }
