@@ -35,6 +35,12 @@ public class At17 {
      * @return
      */
     public List<String> letterCombinations(String digits) {
+        ArrayList<String> list = new ArrayList<>();
+        char[] charArr = digits.toCharArray();
+        int n = charArr.length;
+        // 判断写在前面，针对此类特殊情况，就不用生成map的空间了
+        if (n == 0) return list;
+
         Map<Character, char[]> listHashMap = new HashMap<>();
         listHashMap.put('2', new char[]{'a', 'b', 'c'});
         listHashMap.put('3', new char[]{'d', 'e', 'f'});
@@ -45,10 +51,7 @@ public class At17 {
         listHashMap.put('8', new char[]{'t', 'u', 'v'});
         listHashMap.put('9', new char[]{'w', 'x', 'y', 'z'});
 
-        ArrayList<String> list = new ArrayList<>();
-        char[] charArr = digits.toCharArray();
-        int n = charArr.length;
-        if (n > 0) dfs(0, n, charArr, new StringBuilder(), list, listHashMap);
+        dfs(0, n, charArr, new StringBuilder(), list, listHashMap);
         return list;
     }
 
