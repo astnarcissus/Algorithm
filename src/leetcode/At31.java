@@ -25,14 +25,17 @@ package leetcode;
  * 输出：[1]
  *
  */
-public class at31 {
+public class At31 {
 
     public static void main(String[] args) {
-
+        new At31().nextPermutation(new int[]{1,1,3});
     }
 
     public void nextPermutation(int[] nums) {
 
+
+
+        System.out.println(nums);
     }
 
 
