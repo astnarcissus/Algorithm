@@ -21,14 +21,21 @@ public class At543 {
 
     }
 
+    int maxRoute;
+
     public int diameterOfBinaryTree(TreeNode root) {
+        if (root == null) return 0;
+        maxRoute = 1;
         return getHigh(root);
+
     }
 
     public int getHigh(TreeNode root) {
         if (root == null) return 0;
-
-        return 1;
+        int leftHigh = getHigh(root.left);
+        int rightHigh = getHigh(root.right);
+        maxRoute = Math.max(maxRoute, leftHigh + rightHigh + 1);
+        return Math.max(leftHigh, rightHigh) + 1;
     }
 
 }
