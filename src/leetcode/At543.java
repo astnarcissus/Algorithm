@@ -24,10 +24,9 @@ public class At543 {
     int maxRoute;
 
     public int diameterOfBinaryTree(TreeNode root) {
-        if (root == null) return 0;
         maxRoute = 1;
-        return getHigh(root);
-
+        getHigh(root);
+        return maxRoute - 1;
     }
 
     public int getHigh(TreeNode root) {
