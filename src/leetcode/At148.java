@@ -74,7 +74,7 @@ public class At148 {
     /**
      * 所以真正的解法是归并喽。
      * 那么怎么寻找链表的终点呢，快慢指针，牛逼啊，真是绝了。
-     *
+     * <p>
      * 这个是自顶向上的，题解还有一种解法，先存着
      *
      * @param head
@@ -86,48 +86,35 @@ public class At148 {
 
 
     public ListNode sortList2(ListNode head, ListNode tail) {
-        if (head == null) {
-            return head;
-        }
-        if (head.next == tail) {
-            head.next = null;
-            return head;
-        }
-
+        if (head == null || head.next == null) return head;
         ListNode slow = head;
-        ListNode fast = head;
-
-        while (fast.next != tail) {
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
-            fast = fast.next;
-            if (fast.next != tail) fast = fast.next;
+            fast = fast.next.next;
         }
-        ListNode mid = slow;
-        ListNode list1 = sortList2(head, mid);
-        ListNode list2 = sortList2(mid, tail);
-        ListNode sorted = merge(list1, list2);
-        return sorted;
-
+        ListNode mid = slow.next;
+        slow.next = null;
+        return merge(sortList2(head, slow), sortList2(mid, tail));
     }
+
     public ListNode merge(ListNode head1, ListNode head2) {
-        ListNode dummyHead = new ListNode(0);
-        ListNode temp = dummyHead, temp1 = head1, temp2 = head2;
-        while (temp1 != null && temp2 != null) {
-            if (temp1.val <= temp2.val) {
-                temp.next = temp1;
-                temp1 = temp1.next;
+        ListNode head = new ListNode(0);
+        ListNode cur = head;
+        ListNode cur1 = head1;
+        ListNode cur2 = head2;
+        while (cur1 != null && cur2 != null) {
+            if (cur1.val <= cur2.val) {
+                cur.next = cur1;
+                cur1 = cur1.next;
             } else {
-                temp.next = temp2;
-                temp2 = temp2.next;
+                cur.next = cur2;
+                cur2 = cur2.next;
             }
-            temp = temp.next;
+            cur = cur.next;
         }
-        if (temp1 != null) {
-            temp.next = temp1;
-        } else if (temp2 != null) {
-            temp.next = temp2;
-        }
-        return dummyHead.next;
+        cur.next = cur1 == null ? cur2 : cur1;
+        return head.next;
     }
 
 
