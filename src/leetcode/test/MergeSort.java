@@ -2,9 +2,8 @@ package leetcode.test;
 
 /**
  * 归并排序
- *
+ * <p>
  * 包含自顶向下和自底向上
- *
  */
 public class MergeSort {
 
@@ -14,7 +13,9 @@ public class MergeSort {
         int[] mergeUsedTempArr = new int[n];
 //        new MergeSort().mergeSort(arr, mergeUsedTempArr, 0, n - 1);
 
-        new MergeSort().mergeSort2(arr);
+//        new MergeSort().mergeSort2(arr);
+        new MergeSort().mergeSort3(arr);
+
         for (int i : arr) {
             System.out.println(i);
         }
@@ -89,7 +90,7 @@ public class MergeSort {
                         arr[k] = mergeUsedArr[j++];
                     } else if (j > end) {
                         arr[k] = mergeUsedArr[i++];
-                    } else if (mergeUsedArr[i]< mergeUsedArr[j]) {
+                    } else if (mergeUsedArr[i] < mergeUsedArr[j]) {
                         arr[k] = mergeUsedArr[i++];
                     } else {
                         arr[k] = mergeUsedArr[j++];
@@ -98,4 +99,56 @@ public class MergeSort {
             }
         }
     }
+
+    /**
+     * 不适用额外空间的归并排序
+     *
+     * @param arr
+     */
+    public void mergeSort3(int[] arr) {
+        int n = arr.length;
+        int start = 0;
+        int end = n - 1;
+        int mid = start + (end - start) / 2;
+        mergeSort3(arr, start, end);
+    }
+
+    public void mergeSort3(int[] arr, int start, int end) {
+        if (start == end) return;
+        int mid = start + (end - start) / 2;
+        mergeSort3(arr, start, mid);
+        mergeSort3(arr, mid + 1, end);
+        merge3(arr, start, mid, end);
+    }
+
+    /**
+     * 结合了插入排序的移位操作
+     *
+     * @param arr
+     * @param start
+     * @param mid
+     * @param end
+     */
+    public void merge3(int[] arr, int start, int mid, int end) {
+        int i = start, j = mid + 1;
+        int m = mid, n = end;
+        int k = start;
+        while (k < n) {
+            if (i > m || j > n) {
+                break;
+            } else if (arr[i] <= arr[j]) {
+                arr[k++] = arr[i++];
+            } else {
+                int tmp = arr[j];
+                for (int x = m; x >= i; x--) {
+                    arr[x + 1] = arr[x];
+                }
+                ++m;
+                ++i;
+                ++j;
+                arr[k++] = tmp;
+            }
+        }
+    }
+
 }
