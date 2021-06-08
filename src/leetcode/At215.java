@@ -21,11 +21,12 @@ public class At215 {
 //        sort(nums, 0, nums.length - 1);
         int n = nums.length;
         buildHeap(nums, n);
-        for (int i = n - 1; i >= nums.length - k; i--) {
+        // 此处优化了一下结束条件，只要交换完第K-1大的数之后调整堆，则堆顶就是第K大的数
+        for (int i = n - 1; i >= nums.length - k + 1; i--) {
             swap(nums, 0, i);
             adjustHeap(nums, 0, i);
         }
-        return nums[nums.length - k];
+        return nums[0];
     }
 
     // 快排
