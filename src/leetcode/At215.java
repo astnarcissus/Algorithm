@@ -20,7 +20,7 @@ public class At215 {
     public int findKthLargest(int[] nums, int k) {
 //        sort(nums, 0, nums.length - 1);
         int n = nums.length;
-        buildHeap(nums, n);
+        buildHeap(nums);
         // 此处优化了一下结束条件，只要交换完第K-1大的数之后调整堆，则堆顶就是第K大的数
         for (int i = n - 1; i >= nums.length - k + 1; i--) {
             swap(nums, 0, i);
@@ -52,10 +52,10 @@ public class At215 {
         nums[j] = tmp;
     }
 
-    public void buildHeap(int[] nums, int n) {
-        int last = n;
-        int mid = (last - 1) / 2;
-        for (int i = mid; i >= 0; i--) adjustHeap(nums, i, n);
+    public void buildHeap(int[] nums) {
+        // 基本上是找中点
+        int mid = nums.length / 2 - 1;
+        for (int i = mid; i >= 0; i--) adjustHeap(nums, i, nums.length);
     }
 
     public void adjustHeap(int[] nums, int i, int n) {
