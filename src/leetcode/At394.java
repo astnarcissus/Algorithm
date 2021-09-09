@@ -48,6 +48,7 @@ public class At394 {
     /**
      * 递归
      * 1. 没想到数字可能是多位数的情况 （100），代码写的不优美
+     *
      * @param times
      * @param s
      * @return
@@ -59,7 +60,7 @@ public class At394 {
         for (int i = 0; i < n; i++) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 StringBuilder tStr = new StringBuilder();
-                while(chars[i] != '[') {
+                while (chars[i] != '[') {
                     tStr.append(chars[i]);
                     ++i;
                 }
@@ -74,7 +75,7 @@ public class At394 {
                     if (chars[start + 2 + len] == '[') l++;
                     if (chars[start + 2 + len] == ']') r++;
                 }
-                sb.append(dfs(t, s.substring(start + 2, start + 2 +len)));
+                sb.append(dfs(t, s.substring(start + 2, start + 2 + len)));
                 i += (len + 2);
             } else {
                 sb.append(chars[i]);
@@ -85,6 +86,64 @@ public class At394 {
             res.append(sb);
         }
         return res.toString();
+    }
+
+    /**
+     * 栈
+     * @param s
+     * @return
+     */
+    public String decodeString2(String s) {
+        StringBuilder res = new StringBuilder();
+        int multi = 0;
+        LinkedList<Integer> stack_multi = new LinkedList<>();
+        LinkedList<String> stack_res = new LinkedList<>();
+        for (Character c : s.toCharArray()) {
+            if (c == '[') {
+                stack_multi.addLast(multi);
+                stack_res.addLast(res.toString());
+                multi = 0;
+                res = new StringBuilder();
+            } else if (c == ']') {
+                StringBuilder tmp = new StringBuilder();
+                int cur_multi = stack_multi.removeLast();
+                for (int i = 0; i < cur_multi; i++) tmp.append(res);
+                res = new StringBuilder(stack_res.removeLast() + tmp);
+            } else if (c >= '0' && c <= '9') multi = multi * 10 + Integer.parseInt(c + "");
+            else res.append(c);
+        }
+        return res.toString();
+    }
+
+    /**
+     * 递归
+     * @param s
+     * @return
+     */
+    public String decodeString3(String s) {
+        return dfs(s, 0)[0];
+    }
+
+    private String[] dfs(String s, int i) {
+        StringBuilder res = new StringBuilder();
+        int multi = 0;
+        while (i < s.length()) {
+            if (s.charAt(i) >= '0' && s.charAt(i) <= '9')
+                multi = multi * 10 + Integer.parseInt(String.valueOf(s.charAt(i)));
+            else if (s.charAt(i) == '[') {
+                String[] tmp = dfs(s, i + 1);
+                i = Integer.parseInt(tmp[0]);
+                while (multi > 0) {
+                    res.append(tmp[1]);
+                    multi--;
+                }
+            } else if (s.charAt(i) == ']')
+                return new String[]{String.valueOf(i), res.toString()};
+            else
+                res.append(String.valueOf(s.charAt(i)));
+            i++;
+        }
+        return new String[]{res.toString()};
     }
 
 }
