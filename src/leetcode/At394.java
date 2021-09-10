@@ -38,7 +38,7 @@ import java.util.Queue;
 public class At394 {
 
     public static void main(String[] args) {
-        System.out.println(new At394().decodeString("3[a]2[bc]"));
+        System.out.println(new At394().decodeString4("3[a2[c]]"));
     }
 
     public String decodeString(String s) {
@@ -90,6 +90,7 @@ public class At394 {
 
     /**
      * 栈
+     *
      * @param s
      * @return
      */
@@ -117,6 +118,7 @@ public class At394 {
 
     /**
      * 递归
+     *
      * @param s
      * @return
      */
@@ -144,6 +146,34 @@ public class At394 {
             i++;
         }
         return new String[]{res.toString()};
+    }
+
+    public String decodeString4(String s) {
+        StringBuilder sb = new StringBuilder();
+        int mul = 0;
+        LinkedList<Integer> mulStack = new LinkedList<>();
+        LinkedList<String> strStack = new LinkedList<>();
+
+        for (char c : s.toCharArray()) {
+            if (c >= '0' && c <= '9') {
+                mul = mul * 10 + (c - '0');
+            } else if (c == '[') {
+                mulStack.addLast(mul);
+                strStack.addLast(sb.toString());
+                mul = 0;
+                sb = new StringBuilder();
+            } else if (c == ']') {
+                int nowMul = mulStack.removeLast();
+                StringBuilder tmp = new StringBuilder();
+                for (int i = 0; i < nowMul; i ++) {
+                    tmp.append(sb);
+                }
+                sb = new StringBuilder(strStack.removeLast() + tmp);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 
 }
